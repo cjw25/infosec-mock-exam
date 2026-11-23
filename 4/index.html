@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>정보보안산업기사 모의고사 제4회</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday study tool, calm and exact
+   IDEA a printed exam answer sheet that a teacher marks in red pen
+   PICTURE the answer sheet itself, numbers in a hanging column that get red circles and slashes when graded
+   COLOUR white sheet, cobalt title strip and selections, red pen for marks, pale cobalt section bands
+   TYPE Space Grotesk for numerals and score, IBM Plex Sans KR for text
+   LAYOUT strip with title and part tabs, sticky score bar, one calm column of questions; phone keeps the same order */
+:root{color-scheme:light;--bg:#fff;--ink:#0b0b10;--soft:#4a5068;--cob:#1240e0;--pale:#eef2ff;--line:#d6dcf0;--pen:#e4002b;--code:#f4f6fb;--on:#fff;--tint:#fef0f2;--focus:rgba(18,64,224,.45)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#0a0d18;--ink:#e6e9f5;--soft:#a3abc6;--cob:#7d97ff;--pale:#131a35;--line:#29324f;--pen:#ff5a6e;--code:#10162b;--on:#0a0d18;--tint:#21131f;--focus:rgba(125,151,255,.45)}}
+:root[data-theme=dark]{color-scheme:dark;--bg:#0a0d18;--ink:#e6e9f5;--soft:#a3abc6;--cob:#7d97ff;--pale:#131a35;--line:#29324f;--pen:#ff5a6e;--code:#10162b;--on:#0a0d18;--tint:#21131f;--focus:rgba(125,151,255,.45)}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:150px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;overflow-x:clip}
+.num,.score b{font-family:"Space Grotesk","IBM Plex Sans KR",sans-serif}
+.strip{background:#1240e0;color:#fff;padding:22px max(5vw,16px) 0}
+.strip h1{margin:0;font-size:clamp(26px,4vw,40px);line-height:1.1;letter-spacing:-.02em;font-weight:600;text-wrap:balance}
+.strip p{margin:6px 0 0;color:#dfe6ff;font-size:15px}
+.tabs{display:flex;gap:4px;margin-top:18px;flex-wrap:wrap}
+.tabs a{color:#fff;text-decoration:none;padding:10px 18px;border-radius:8px 8px 0 0;font-weight:600;background:#0d32b8;min-height:44px;display:flex;align-items:center;gap:8px}
+.tabs a[aria-current=page]{background:var(--bg);color:var(--cob)}
+.tabs small{font-weight:400;opacity:.8}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:10px max(5vw,16px);display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.bar .info{flex:1 1 220px;color:var(--soft);font-size:15px}
+.bar .info b{color:var(--ink)}
+.score{display:none;align-items:baseline;gap:6px;color:var(--pen)}
+.score.on{display:flex}
+.score b{font-size:32px;line-height:1}
+button{font:inherit;font-size:15px;min-height:44px;padding:0 18px;border-radius:8px;border:1px solid var(--cob);background:var(--bg);color:var(--cob);cursor:pointer}
+button.main{background:var(--cob);color:var(--on);border-color:var(--cob)}
+button:hover{filter:brightness(1.08)}
+button:focus-visible,input:focus-visible,select:focus-visible,.opt:focus-within{outline:3px solid var(--focus);outline-offset:2px}
+main{max-width:960px;margin:0 auto;padding:8px max(5vw,16px) 40px}
+.sec{background:var(--pale);margin:28px calc(-1*max(5vw,16px)) 4px;padding:12px max(5vw,16px);font-weight:600;color:var(--cob);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.sec span{font-weight:400;color:var(--soft);font-size:15px}
+.q{display:grid;grid-template-columns:56px minmax(0,1fr);gap:4px 14px;padding:22px 0;border-bottom:1px solid var(--line)}
+.q .num{position:relative;font-size:24px;font-weight:600;color:var(--cob);line-height:1.2;width:44px;height:44px;display:grid;place-items:center}
+.q.ok .num::after{content:"";position:absolute;inset:-4px;border:3px solid var(--pen);border-radius:50%;transform:rotate(-8deg)}
+.q.no .num::after{content:"";position:absolute;left:50%;top:-6px;bottom:-6px;border-left:3px solid var(--pen);transform:rotate(35deg)}
+.qt{margin:0 0 10px;font-weight:600}
+.qt .ty{display:inline-block;font-weight:400;font-size:13px;color:var(--soft);border:1px solid var(--line);border-radius:4px;padding:0 6px;margin-right:6px;vertical-align:2px}
+.stmt{border:1px solid var(--line);padding:10px 14px;margin:0 0 10px;border-radius:6px}
+pre{background:var(--code);border-left:3px solid var(--line);margin:0 0 12px;padding:10px 12px;font:13.5px/1.55 Consolas,"D2Coding",monospace;overflow-x:auto;white-space:pre}
+.opts{display:grid;gap:8px}
+.opts.row{grid-template-columns:repeat(2,minmax(0,160px))}
+.opt{position:relative;display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:8px;cursor:pointer;min-height:44px}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt .c{flex:none;color:var(--cob);font-weight:600}
+.opt.sel{border-color:var(--cob);background:var(--pale)}
+.opt.right{box-shadow:inset 0 0 0 2px var(--cob)}
+.opt.wrong{border-color:var(--pen);color:var(--pen)}
+.match{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:8px 20px;margin-bottom:6px}
+.match .l{display:flex;align-items:center;gap:8px;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--line)}
+.match .r{padding:6px 0;border-bottom:1px dashed var(--line)}
+select,input[type=text]{font:inherit;font-size:16px;min-height:44px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);padding:0 12px}
+select{min-width:76px}
+input[type=text]{width:100%;max-width:520px}
+.bogi{border:2px solid var(--ink);border-radius:6px;padding:12px 14px;margin:14px 0 6px;background:var(--bg)}.bogi b{display:block;font-size:14px;margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{min-height:36px;font-size:14px;border-color:var(--line);color:var(--ink);padding:0 12px}
+.ans{grid-column:2;margin-top:12px;border-left:3px solid var(--pen);padding:8px 12px;background:var(--tint);display:none;overflow-wrap:anywhere}
+.graded .ans{display:block}
+.ans .a{font-weight:600;color:var(--pen)}
+.ans p{margin:6px 0 0}
+.ans .s{font-size:13px;color:var(--soft)}
+.ans .r{font-size:14px;color:var(--soft);border-left:2px solid var(--cob);padding-left:10px}
+.ans .r b{color:var(--cob);font-weight:600;margin-right:4px}
+.ans button{min-height:34px;font-size:13px;margin-top:8px;border-color:var(--pen);color:var(--pen)}
+footer{border-top:1px solid var(--line);color:var(--soft);font-size:14px;padding:20px max(5vw,16px) 40px}
+footer .in{max-width:960px;margin:0 auto}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;margin-top:10px;font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{color:var(--ink)}
+summary{cursor:pointer;color:var(--cob);font-weight:600;min-height:44px;display:flex;align-items:center}
+.pick{display:none}
+dialog{border:0;padding:0;margin:auto 0 0;width:100%;max-width:100%;max-height:82dvh;background:var(--bg);color:var(--ink);border-radius:14px 14px 0 0;overflow:hidden}
+dialog[open]{display:flex;flex-direction:column}
+dialog::backdrop{background:rgba(5,8,20,.55)}
+.sh{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line)}
+.sl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:12px 16px calc(16px + env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain}
+.sl button{min-height:48px;padding:6px 8px;font-size:14px;line-height:1.3;border-color:var(--line);color:var(--ink);overflow-wrap:anywhere}
+.sl button[aria-pressed=true]{border-color:var(--cob);background:var(--pale);color:var(--cob);font-weight:600}
+@media(max-width:600px){pre{white-space:pre-wrap;overflow-wrap:anywhere}html{scroll-padding-top:72px}.strip{padding-top:16px}.strip h1{font-size:24px}.strip p{font-size:14px}.tabs{flex-wrap:nowrap;margin-top:12px}.tabs a{flex:1 1 0;flex-direction:column;align-items:flex-start;justify-content:center;gap:0;padding:6px 10px;line-height:1.3;font-size:15px}.tabs small{font-size:13px}.bar{flex-wrap:nowrap;gap:6px;padding:6px 16px}.bar .info{flex:1 1 auto;font-size:13px;line-height:1.35}.bar button{flex:none;padding:0 10px;font-size:14px;white-space:nowrap}.bar.done #grade{display:none}.score{flex:none}.score span{font-size:13px}.q{grid-template-columns:40px minmax(0,1fr);gap:4px 10px}.q .num{font-size:19px;width:36px;height:36px}.opts.row{grid-template-columns:repeat(2,minmax(0,1fr))}.match{grid-template-columns:minmax(0,1fr)}.match .l{order:1}.match::after{content:"";order:2;height:1px;background:var(--line)}.match .r{order:3;border:0;padding:0;color:var(--soft);font-size:15px}.ans{grid-column:1/-1}table{font-size:13px}.score b{font-size:24px}.chips button{min-height:40px}.pick{display:flex;align-items:center;justify-content:center;width:100%;margin-top:8px}.nosheet .pick{display:none}}
+@media(prefers-reduced-motion:no-preference){.q.ok .num::after,.q.no .num::after{animation:mark .35s ease-out}@keyframes mark{from{opacity:0;transform:scale(1.4) rotate(-8deg)}}}
+</style>
+</head>
+<body>
+<header class="strip">
+  <a href="../" style="display:inline-flex;align-items:center;min-height:44px;color:#fff;font-size:15px;text-decoration:none">← 회차 선택</a>
+  <h1>정보보안산업기사 과정평가형 모의고사 <span id="round"></span></h1>
+  <p>출제기준(2025~2026)의 8개 능력단위 NCS 학습모듈을 바탕으로 평가가이드(V1) 출제 유형에 맞춰 만든 연습용 문항입니다.</p>
+  <nav class="tabs" aria-label="시험 구분">
+    <a href="#first" id="tab-first">1차 시험 <small>40문항 · 90분</small></a>
+    <a href="#second" id="tab-second">2차 시험 <small>필답형 20문항 · 90분</small></a>
+  </nav>
+</header>
+<div class="bar" role="region" aria-label="채점">
+  <div class="info" id="info"></div>
+  <div class="score" id="score" aria-live="polite"><b id="pts">0</b><span>점 / 100</span></div>
+  <button class="main" id="grade" type="button">채점하기</button>
+  <button id="reset" type="button">다시 풀기</button>
+</div>
+<main id="view"></main>
+<footer><div class="in">
+  <details><summary>출제 범위와 문항 배치</summary><div class="scroll"><table id="units"></table></div></details>
+  <p>정답은 채점 후 문항마다 해설·출제 근거(학습모듈 쪽수)와 함께 표시됩니다. 주관식은 표현이 달라 오답 처리될 수 있으니, 해설의 인정 답안을 보고 "정답으로 인정"을 누르세요. 입력한 답은 이 브라우저에만 저장됩니다.</p>
+<p>개인 학습용 연습 문항이며 한국산업인력공단의 공식 시험 문제가 아닙니다.</p>
+</div></footer>
+<dialog id="sheet" aria-labelledby="sheet-t"><div class="sh"><b id="sheet-t"></b><button type="button" id="sheet-x">닫기</button></div><div class="sl" id="sheet-list"></div></dialog>
+<script>
+{
+const D = {"meta":{"title":"정보보안산업기사(과정평가형) 외부평가 모의고사","round":"제4회","guide":"V1","first":{"name":"1차 시험","method":"객관식 및 주관식","count":40,"time":"1시간 30분","score":"100점(40%)"},"second":{"name":"2차 시험","method":"필답형 실기(정보보안 운영 및 분석진단 등)","task":"정보보안 운영 및 분석진단 등","count":20,"time":"1시간 30분","timeLong":"1시간30분(90분)","minutes":90,"score":"100점(60%)"},"ptsFirst":2.5,"ptsSecond":5},"units":[{"code":"2001020611_19v5","name":"SW개발 보안 구축","f":"1, 9, 15, 16, 31","s":"1, 2, 3"},{"code":"2001020613_19v5","name":"시스템 보안 구축","f":"2, 10, 17, 18, 32","s":"4, 5, 6"},{"code":"2001020614_19v5","name":"NW보안 구축","f":"3, 11, 19, 20, 33","s":"7, 8, 9"},{"code":"2001060108_19v3","name":"네트워크 보안 운영","f":"4, 21, 22, 34, 35","s":"10, 11, 12"},{"code":"2001060109_19v3","name":"애플리케이션 보안 운영","f":"5, 12, 23, 24, 36","s":"13, 14"},{"code":"2001060110_19v3","name":"시스템 보안 운영","f":"6, 13, 25, 26, 37","s":"15, 16"},{"code":"2001060307_19v2","name":"보안로그 분석 (학습모듈 본문 16v1)","f":"7, 27, 28, 38, 39","s":"17, 18"},{"code":"2001060207_19v2","name":"정보시스템 진단 (학습모듈 본문 16v1)","f":"8, 14, 29, 30, 40","s":"19, 20"}],"first":[{"type":"ox","q":"다음 설명이 옳으면 O, 틀리면 X에 해당하는 번호를 선택하시오.","stmt":"SW개발 보안 방법론은 기존의 SW개발 생명주기(SDLC: Software Development Life Cycle)에서 안전한 SW를 개발하기 위해 각 단계별로 요구되는 보안 활동을 적용한 방법론이다.","a":"O","e":"학습모듈의 문장과 일치한다.","s":"SW개발 보안 구축 (4쪽)"},{"type":"ox","q":"다음 설명이 옳으면 O, 틀리면 X에 해당하는 번호를 선택하시오.","stmt":"악의적인 사용자로부터 계속적인 접속을 차단하기 위해 패스워드의 최소 사용 기간을 설정하여 주기적으로 패스워드를 변경하도록 할 필요가 있다.","a":"X","swap":["최소","최대"],"e":"학습모듈 원문과 비교하면 최소, 최대 두 용어가 서로 바뀌었다.","s":"시스템 보안 구축 (54쪽)"},{"type":"ox","q":"다음 설명이 옳으면 O, 틀리면 X에 해당하는 번호를 선택하시오.","stmt":"상향식 테스트 : 시스템을 구성하는 모듈의 계층 구조에서 맨 상위의 모듈부터 시작하여 점차 하위 모듈 방향으로 통합하는 방법","a":"X","swap":["상향식","하향식"],"e":"학습모듈 원문과 비교하면 상향식, 하향식 두 용어가 서로 바뀌었다.","s":"NW보안 구축 (61쪽)"},{"type":"ox","q":"다음 설명이 옳으면 O, 틀리면 X에 해당하는 번호를 선택하시오.","stmt":"방화벽은 내부 사용자가 내부 네트워크에 존재하는 중요한 정보를 디스크나 USB와 같은 저장매체를 이용하여 유출하는 형태의 침해를 차단하지는 못한다.","a":"O","e":"학습모듈의 문장과 일치한다.","s":"네트워크 보안 운영 (42쪽)"},{"type":"ox","q":"다음 설명이 옳으면 O, 틀리면 X에 해당하는 번호를 선택하시오.","stmt":"애플리케이션 보안 솔루션 업데이트는 사용자가 직접 업데이트 파일을 웹에서 다운로드하여 설치하는 수동 업데이트 방식(온라인 방식)과 자동으로 정해진 일정에 따라 업데이트 필요 유무를 검사하고 필요시 다운로드하여 설치하는 자동 업데이트 방식(오프라인 방식)으로 구분할 수 있다.","a":"X","swap":["온라인","오프라인"],"e":"학습모듈 원문과 비교하면 온라인, 오프라인 두 용어가 서로 바뀌었다.","s":"애플리케이션 보안 운영 (50쪽)"},{"type":"ox","q":"다음 설명이 옳으면 O, 틀리면 X에 해당하는 번호를 선택하시오.","stmt":"자산은 그 수나 종류가 다양하기 때문에 적절한 분류 기준을 정의하고, 이에 따른 구분에 의하여 파악된 자산의 중복이나 누락 문제를 최소화해야 한다.","a":"O","e":"학습모듈의 문장과 일치한다.","s":"시스템 보안 운영 (26쪽)"},{"type":"ox","q":"다음 설명이 옳으면 O, 틀리면 X에 해당하는 번호를 선택하시오.","stmt":"정책과 일치할 때에는 ‘미탐지’, 일치하지 않을 경우에는 ‘탐지’로 결정","a":"X","swap":["‘미탐지’","‘탐지’"],"e":"학습모듈 원문과 비교하면 미탐지, 탐지 두 용어가 서로 바뀌었다.","s":"보안로그 분석(LM2001060307_19v2, 본문 표기 16v1) (15쪽)"},{"type":"ox","q":"다음 설명이 옳으면 O, 틀리면 X에 해당하는 번호를 선택하시오.","stmt":"위험은 손실을 끼치는 사건 발생 가능성과 발생 손실의 정도에 비례한다.","a":"O","e":"학습모듈의 문장과 일치한다.","s":"정보시스템 진단(LM2001060207_19v2, 본문 표기 16v1) (5쪽)"},{"type":"match","q":"다음 로그인 관리 항목과 그 내용을 올바르게 연결하시오.","left":["잘못된 패스워드 입력 횟수 제한","최근 로그인 정보 표시","일정 시간 경과 시 자동 로그오프"],"right":["개발자가 로그인 시 가장 최근에 성공적으로 로그인한 날짜, 시각 등의 정보를 화면에 표시한다.","사용자로부터 일정 시간 동안 입력이 없을 경우 자동 로그오프 또는 세션 종료 처리를 한다.","일정 횟수 이상 패스워드를 잘못 입력할 경우 일시적인 사용 중지를 하거나 세션을 종료한다."],"a":"①-㉢, ②-㉠, ③-㉡","e":"학습모듈의 항목과 설명을 그대로 연결한 문항이다.","s":"SW개발 보안 구축 (52쪽)"},{"type":"match","q":"다음 용어와 그 개념을 올바르게 연결하시오.","left":["테스트","결함","결함 관리"],"right":["발생한 결함의 재발생을 막고, 유사 결함 발견 시 처리 시간을 단축하기 위한 활동이다.","소프트웨어 제품 또는 서비스의 품질에 대한 정보를 이해관계자에게 제공하기 위해 수행된 평가라고 할 수 있다.","소프트웨어가 바르게 동작하지 않은 원인이 되는 프로그램상의 오류를 의미한다."],"a":"①-㉡, ②-㉢, ③-㉠","e":"학습모듈의 항목과 설명을 그대로 연결한 문항이다.","s":"시스템 보안 구축 (69쪽)"},{"type":"match","q":"다음 악성 프로그램 관련 용어와 그 의미를 올바르게 연결하시오.","left":["랜섬웨어","바이러스","좀비 PC"],"right":["사용자 컴퓨터나 서버 시스템에 동의 없이 설치되어 파일을 암호화하고, 복호화를 원하는 사용자에게 돈을 요구하는 사이버 범죄에 사용되는 악성 프로그램","해커가 원격에서 제어할 수 있는 악성 프로그램이 설치되어, 사용자 모르게 스팸 발송, 악성코드 유포, DDoS 등의 공격에 활용되는 컴퓨터","정상적인 실행 파일과 결합하여 PC의 동작을 중지시키거나 파일을 변조 혹은 파괴하는 등 컴퓨터의 운영을 방해하는 악성 프로그램"],"a":"①-㉠, ②-㉢, ③-㉡","e":"학습모듈의 항목과 설명을 그대로 연결한 문항이다.","s":"NW보안 구축 \u003c표 1-3> (7쪽)"},{"type":"match","q":"다음 보안 솔루션과 그 설명을 올바르게 연결하시오.","left":["침입 차단 시스템 (IPS)","접근 제어","안티바이러스"],"right":["일반적으로 백신 프로그램으로 많이 알려진 소프트웨어","시스템(또는 서버)에 접근 권한, 접근 경로 및 실시간 감시를 위한 하드웨어 및 소프트웨어","외부 네트워크에서 내부 네트워크로 유입되는 패킷 중에서 악의적인 패킷을 찾아 제어하는 기능을 가진 하드웨어 또는 소프트웨어"],"a":"①-㉢, ②-㉡, ③-㉠","e":"학습모듈의 항목과 설명을 그대로 연결한 문항이다.","s":"애플리케이션 보안 운영 \u003c표 2-1> (19쪽)"},{"type":"match","q":"다음 정보 보안 관리 영역과 그 세부 내용을 올바르게 연결하시오.","left":["시스템 개발 보안","암호 통제","보안 사고 관리"],"right":["암호 정책, 암호 사용, 키 관리","분석, 설계, 구현 이행, 변경 관리","대응 계획 및 체계, 대응 및 복구, 사후 관리"],"a":"①-㉡, ②-㉠, ③-㉢","e":"학습모듈의 항목과 설명을 그대로 연결한 문항이다.","s":"시스템 보안 운영 (16쪽)"},{"type":"match","q":"다음 취약성의 유형 분류와 그 내용을 올바르게 연결하시오.","left":["관리적 측면","물리적 측면","기술적 측면"],"right":["건물, 시설물 등의 물리적 시설","네트워크, 시스템, 데이터베이스, PC, 응용 프로그램 등","정책, 조직, 인사 등의 관리적 사항"],"a":"①-㉢, ②-㉠, ③-㉡","e":"학습모듈의 항목과 설명을 그대로 연결한 문항이다.","s":"정보시스템 진단(LM2001060207_19v2, 본문 표기 16v1) (7쪽)"},{"type":"choice","q":"다음 검토 내용에 해당하는 항목은?\n\"시스템 데이터 및 기능에 허가를 받지 않고 접근하여 시스템 전체가 침해되는 결과를 가져오는 공격을 방지할 수 있도록 애플리케이션이 적절히 설정되어 있는지 여부를 검토한다.\"","o":["불안전한 암호 저장","잘못된 보안 설정","애플리케이션 로직 결함","권한 부여(Authorization) 우회"],"a":2,"e":"학습모듈의 \"잘못된 보안 설정\" 검토 내용이다.","s":"SW개발 보안 구축 (56~57쪽)"},{"type":"choice","q":"소프트웨어 개발 보안 측면의 시큐어 코딩의 목적에 해당하지 않는 것은?","o":["보안 취약점과 결함 방지","안전한 대고객 서비스 확대","안정성 및 신뢰성 확보","시큐어 코딩 자동화 도구"],"a":4,"e":"시큐어 코딩의 목적은 보안 취약점과 결함 방지, 안전한 대고객 서비스 확대, 안정성 및 신뢰성 확보이다.","s":"SW개발 보안 구축 (40~41쪽)","head":"소프트웨어 개발 보안 측면의 시큐어 코딩의 목적"},{"type":"choice","q":"DBMS 관리의 목적에서 관리해야 하는 항목이 아닌 것은?","o":["세션 가로채기","DBMS 계정 관리","데이터베이스 접근 권한","데이터베이스 암호화"],"a":1,"e":"세션 가로채기는 세션 관리에서 통제하는 대상이다.","s":"시스템 보안 구축 (4~5쪽)","head":"DBMS 관리의 목적"},{"type":"choice","q":"다음은 패스워드 최소 사용 기간 설정 방법이다. 괄호에 들어갈 것은?\n\"[Linux] 1. \"/etc/login.defs\" 파일을 편집기로 열어서 다음 파라미터값을 추가하여 수정 (          ) 1\"","o":["PASS_MAX_DAYS","MINWEEKS","PASS_MIN_DAYS","MAXWEEKS"],"a":3,"e":"MINWEEKS와 MAXWEEKS는 SOLARIS의 파라미터이고, PASS_MAX_DAYS는 패스워드 최대 사용 기간 파라미터이다.","s":"시스템 보안 구축 \u003c표 2-8> (54쪽)","head":"패스워드 최소 사용 기간 설정 방법","fill":"PASS_MIN_DAYS"},{"type":"choice","q":"네트워크 보안 설계 원칙 중 다음 설명에 해당하는 것은?\n\"보안 리스크를 줄이기 위함과 동시에 법률 위반을 방지하기 위해 법규에서 가이드하는 보안대책은 반드시 적용이 필요하다.\"","o":["최소화의 원칙(Minimalization)","법규 준수의 원칙(Compliance)","분리의 원칙(Isolation)","다중 보안의 원칙(Defence in Depth)"],"a":2,"e":"학습모듈의 법규 준수의 원칙 설명이다.","s":"NW보안 구축 (21쪽)","head":"네트워크 보안 설계 원칙"},{"type":"choice","q":"네트워크 접근 관리 점검 항목이 아닌 것은?","o":["ACL 접근 통제","Timeout 설정","암호화 패스워드 설정","로그온 경고 메시지"],"a":3,"e":"암호화 패스워드 설정은 네트워크 계정 관리 점검 항목이다.","s":"NW보안 구축 \u003c표 2-3>, \u003c표 2-4> (50쪽)","head":"네트워크 접근 관리 점검 항목"},{"type":"choice","q":"네트워크 보안 솔루션 개선 계획 절차를 순서대로 나열한 것은?","o":["네트워크 구성 분석 → 보안 위협 도출 → 보안 취약점 진단 → 개선 방안 수립","보안 위협 도출 → 네트워크 구성 분석 → 보안 취약점 진단 → 개선 방안 수립","네트워크 구성 분석 → 보안 취약점 진단 → 보안 위협 도출 → 개선 방안 수립","보안 취약점 진단 → 보안 위협 도출 → 네트워크 구성 분석 → 개선 방안 수립"],"a":1,"e":"학습모듈의 절차 순서이다.","s":"네트워크 보안 운영 (25쪽)","head":"네트워크 보안 솔루션 개선 계획 절차"},{"type":"choice","q":"네트워크 장비 보안 요구사항 중 감사 기록 요구사항이 아닌 것은?","o":["감사의 기능의 시작･종료 기능","관리자에 대한 식별 및 인증 성공･실패 기능","제품 설정 변경 내역, 보안 기능 수행 내역","관리 콘솔 접속 가능 IP 개수 제한 기능"],"a":4,"e":"관리 콘솔 접속 가능 IP 개수 제한 기능은 자체 보안 관리 요구사항이다.","s":"네트워크 보안 운영 (4쪽)","head":"네트워크 장비 보안 요구사항"},{"type":"choice","q":"애플리케이션 보안 솔루션의 복구 결과 보고서 예시의 항목이 아닌 것은?","o":["서비스 장애 개요","서비스 영향도 분석","점검 결과 확인","재발방지 대책"],"a":3,"e":"점검 결과 확인은 애플리케이션 보안 솔루션 운영 순서의 내용이다.","s":"애플리케이션 보안 운영 \u003c표 1-6>, \u003c표 3-9> (13, 41쪽)","head":"애플리케이션 보안 솔루션의 복구 결과 보고서"},{"type":"choice","q":"다음 설명에 해당하는 애플리케이션 관련 보안 위협은?\n\"불특정 다수에게 전자 우편, 메시지 등으로 광고성 정보를 송신하는 것으로 특정 사이트로 접속을 유도하여 악성 코드를 감염시키는 데에도 이용된다.\"","o":["스팸(spam)","피싱(phishing)","해킹(hacking)","DOS/DDOS"],"a":1,"e":"학습모듈의 스팸 설명이다.","s":"애플리케이션 보안 운영 (32~33쪽)"},{"type":"choice","q":"시스템 보안 솔루션 운영 업무의 어려움에 해당하지 않는 것은?","o":["다양한 솔루션에 의한 운영에 따라 일관적이지 못한 복잡한 정보에 대한 조치가 어렵다.","여러 종류의 보안 운영에 관련된 운영 정보의 체계적인 관리가 어렵다.","다양한 보안 솔루션 운영에 대한 개별화된 보안 수준 평가로는 전체 통일화된 보안 수준 평가가 어렵다.","보안 요구사항을 만족하기 위해 해당 보안 솔루션을 통하여 해결하려고 하는 상황이 대부분이어서 보안 솔루션에 대한 의존도가 높다."],"a":4,"e":"④는 시스템 보안 운영 상 보안 솔루션의 역할에 관한 내용이다.","s":"시스템 보안 운영 (5, 12쪽)","head":"시스템 보안 솔루션 운영 업무의 어려움"},{"type":"choice","q":"침해 사고 분석 절차의 사고 탐지 징후에 해당하지 않는 것은?","o":["관리자가 생성하지 않은 계정 발견","침해 사고 대응팀 소집","유휴 상태 및 디폴트 계정의 로그인 시도","출처 불명의 파일 또는 프로그램 발견"],"a":2,"e":"침해 사고 대응팀 소집은 초기 대응의 내용이다.","s":"시스템 보안 운영 (55~56쪽)","head":"사고 탐지 징후"},{"type":"choice","q":"다음 보안 사건을 기록하는 Platform 보안시스템은?\n\"탐지패턴 업데이트 / 악성코드의 탐지 및 차단, 복구 / 공지사항 전달 / 시스템별 악성코드 검사 등\"","o":["Vaccine","PMS","SecureOS","USB 보안"],"a":1,"e":"학습모듈 \u003c표 2-1> 보안시스템 유형의 Vaccine 항목이다.","s":"보안로그 분석(LM2001060307_19v2, 본문 표기 16v1) \u003c표 2-1> (31쪽)"},{"type":"choice","q":"다음 의미에 해당하는 보안로그 조회 항목은?\n\"공격이 발생하게 된 취약점의 표준 명칭 및 상세 설명 Link\"","o":["탐지 시간","CVE Code","공격 유형","공격 내용"],"a":2,"e":"학습모듈 \u003c표 1-14>의 CVE Code 항목이다.","s":"보안로그 분석(LM2001060307_19v2, 본문 표기 16v1) \u003c표 1-14> (20쪽)"},{"type":"choice","q":"데이터베이스 취약점 진단 도구의 특징 중 다음 설명에 해당하는 것은?\n\"시스템 내에 에이전트(Agent)나 별도의 컴포넌트(Component) 설치를 요구하지 않으며 점검 대상 데이터베이스의 IP 대역과 포트 정보만으로 점검을 수행할 수 있다.\"","o":["다각적 분석 가능","사용자 정의 진단","사용자 편의성과 점검 시간 단축","기술 모방"],"a":3,"e":"기술 모방은 네트워크 취약점 진단 도구의 특징이다.","s":"정보시스템 진단(LM2001060207_19v2, 본문 표기 16v1) (49, 51쪽)","head":"데이터베이스 취약점 진단 도구의 특징"},{"type":"choice","q":"다음 괄호에 들어갈 것은?\n\"(          )는 주로 시스템이나 장비의 구성(configuration) 설정 변경, 파일 등의 권한 변경, 취약한 패스워드 변경 등으로 빠른 시간 내에 처리할 수 있는 사항들이다.\"","o":["정책 및 절차 수립","정보 보호 시스템의 도입 및 관련 교육","모니터링 및 감사","즉시 교정 가능한 취약점 제거"],"a":4,"e":"학습모듈의 정보 보호 계획 수립 내용이다.","s":"정보시스템 진단(LM2001060207_19v2, 본문 표기 16v1) (64~65쪽)","fill":"즉시 교정 가능한 취약점 제거"},{"type":"short","q":"다음 설명에 해당하는 용어를 쓰시오.\n\"예외 발생 시 예외 상황에 맞는 처리 조건을 적절하게 검사하지 않을 경우 잘못된 실행 결과를 가져올 수 있는 보안약점\"","a":"부적절한 예외 처리","exact":["부적절한 예외 처리"],"e":"부적절한 예외 처리에 대한 학습모듈의 설명이다.","s":"SW개발 보안 구축 \u003c표 2-5> (47쪽)","acc":null},{"type":"short","q":"다음 괄호에 들어갈 용어를 쓰시오.\n\"허가 없이 데이터베이스나 파일에 접속하는 것을 방지하기 위한 안전 대책의 한 가지로 (          )는 사용자가 컴퓨터 시스템 또는 통신망에 접속할 때 사용자 ID와 함께 입력하여 정당한 사용자라는 것을 식별할 수 있도록 주컴퓨터에 전달해야 하는 고유의 문자열이다.\"","a":"패스워드","fill":"패스워드","exact":["패스워드","password","비밀번호"],"e":"학습모듈 문장의 괄호 부분이다.","s":"시스템 보안 구축 (3쪽)","acc":null},{"type":"short","q":"다음 설명에 해당하는 용어를 쓰시오.\n\"해커가 소프트웨어나 하드웨어의 취약점을 통해 악성 행위를 수행하기 위해 제작한 프로그램\"","a":"익스플로잇(Exploit)","exact":["익스플로잇(Exploit)","익스플로잇","Exploit"],"e":"익스플로잇(Exploit)에 대한 학습모듈의 설명이다.","s":"NW보안 구축 \u003c표 1-3> (7쪽)","acc":null},{"type":"short","q":"다음 괄호에 들어갈 용어를 쓰시오.\n\"(          )은 사용자가 OSI 환경에 접근하여 상호작용할 수 있다.\"","a":"응용 계층","fill":"응용 계층","exact":["응용 계층","응용계층","application layer","애플리케이션 계층"],"e":"학습모듈 문장의 괄호 부분이다.","s":"네트워크 보안 운영 (12쪽)","acc":null},{"type":"short","q":"다음 설명에 해당하는 용어를 쓰시오.\n\"이용 가능한 서비스의 종류를 조사하기 위해 패킷들을 서로 다른 포트 번호로 보낸 후 응답을 기다리는 것이다.\"","a":"포트 스캔 공격(port scan attack)","exact":["포트 스캔 공격(port scan attack)","포트 스캔 공격","포트 스캔","port scan attack","port scan"],"e":"포트 스캔 공격(port scan attack)에 대한 학습모듈의 설명이다.","s":"네트워크 보안 운영 (39쪽)","acc":null},{"type":"short","q":"다음 설명에 해당하는 용어를 쓰시오.\n\"서버에서 동작하는 애플리케이션에 대한 소프트웨어를 개발할 때 발생 가능한 보안 취약점을 제거해 해킹을 예방하는 기법을 말한다.\"","a":"시큐어 코딩(secure coding)","exact":["시큐어 코딩(secure coding)","시큐어 코딩","secure coding"],"e":"시큐어 코딩(secure coding)에 대한 학습모듈의 설명이다.","s":"애플리케이션 보안 운영 (25쪽)","acc":null},{"type":"short","q":"다음 설명에 해당하는 용어를 쓰시오.\n\"호스트 기반 증거와 네트워크 기반 증거로 나누어 조사한다.\"","a":"사고 조사","exact":["사고 조사"],"e":"사고 조사에 대한 학습모듈의 설명이다.","s":"시스템 보안 운영 (56쪽)","acc":null},{"type":"short","q":"다음 설명에 해당하는 용어를 쓰시오.\n\"인터넷상의 한 컴퓨터에서 다른 컴퓨터로 데이터를 보내는 데 사용되는 프로토콜\"","a":"IP(Internet Protocol)","exact":["IP(Internet Protocol)","IP","Internet Protocol"],"e":"IP(Internet Protocol)에 대한 학습모듈의 설명이다.","s":"보안로그 분석(LM2001060307_19v2, 본문 표기 16v1) (17쪽)","acc":null},{"type":"short","q":"다음 설명에 해당하는 용어를 쓰시오.\n\"내부 File System을 활용하는 방식 / HDD 등의 저장장치 고장 시, 저장 Log 활용 불가\"","a":"Local Storage","exact":["Local Storage"],"e":"Local Storage에 대한 학습모듈의 설명이다.","s":"보안로그 분석(LM2001060307_19v2, 본문 표기 16v1) (32쪽)","acc":null},{"type":"short","q":"다음 괄호에 들어갈 용어를 쓰시오.\n\"(          )은 조직이 보호해야 할 대상으로서 정보, 하드웨어, 소프트웨어 등을 말하며 관련 인력 등의 무형 자산을 포함하기도 한다.\"","a":"자산(Assets)","fill":"자산(Assets)","exact":["자산(Assets)","자산","Assets"],"e":"학습모듈 문장의 괄호 부분이다.","s":"정보시스템 진단(LM2001060207_19v2, 본문 표기 16v1) (5쪽)","acc":null}],"second":[{"sel":true,"q":"다음 설명에 해당하는 답을 【보기】에서 골라 쓰시오.\n\"객체 생성은 성공적으로 자원(메모리, I/O 등)을 할당받아 생성한다는 가정하에 객체를 사용하게 되는데, 파일, I/O 같은 리소스 할당에서 공유 문제가 발생할 가능성이 있는 경우 공격자는 의도적으로 객체 생성 실패를 유도할 수 있는 보안약점\"","a":"Null Pointer 역참조","exact":["Null Pointer 역참조"],"e":"Null Pointer 역참조에 대한 학습모듈의 설명이다.","s":"SW개발 보안 구축 \u003c표 2-6> (48쪽)","acc":null},{"sel":true,"q":"다음 설명에 해당하는 답을 【보기】에서 골라 쓰시오.\n\"애플리케이션을 악용하여 보안 통제를 우회해 내부 애플리케이션 기능에 직접적으로 접근하는 공격을 허용할 수 있는지 여부를 검토한다.\"","a":"인증 우회","exact":["인증 우회"],"e":"인증 우회에 대한 학습모듈의 설명이다.","s":"SW개발 보안 구축 (57쪽)","acc":null},{"sel":true,"q":"다음 설명에 해당하는 답을 【보기】에서 골라 쓰시오.\n\"클라이언트 쪽 애플릿과 HTML 소스코드와 같은 공개적으로 접속 가능한 정보에서 회수할 수 있는 민감한 암호화 상세 정보(암호화 알고리즘, 암호화 키 등)를 애플리케이션이 제공하는지 여부를 검토한다.\"","a":"불안전한 암호 저장","exact":["불안전한 암호 저장"],"e":"불안전한 암호 저장에 대한 학습모듈의 설명이다.","s":"SW개발 보안 구축 (56쪽)","acc":null},{"sel":true,"head":"계정 확인 및 불필요한 계정 제거 방법","q":"다음은 계정 확인 및 불필요한 계정 제거 방법이다. 괄호에 들어갈 답을 【보기】에서 골라 쓰시오.","code":["#(          ) 삭제할 계정"],"a":"userdel","fill":"userdel","exact":["userdel"],"e":"학습모듈에 실린 설정 예시의 괄호 부분이다.","s":"시스템 보안 구축 \u003c표 2-2> (51쪽)","acc":null},{"sel":true,"q":"다음 괄호에 들어갈 답을 【보기】에서 골라 쓰시오.\n\"Cron 시스템은 (          ) 파일과 cron.deny 파일을 통하여 명령어 사용자를 제한할 수 있으며\"","a":"cron.allow","fill":"cron.allow","exact":["cron.allow"],"e":"학습모듈 문장의 괄호 부분이다.","s":"시스템 보안 구축 (59쪽)","acc":null},{"sel":true,"q":"다음 괄호에 들어갈 답을 【보기】에서 골라 쓰시오.\n\"(          ) 파일을 편집기로 열어서 다음 파라미터값을 수정 MAXWEEKS=12\"","a":"/etc/default/passwd","fill":"/etc/default/passwd","exact":["/etc/default/passwd"],"e":"학습모듈 문장의 괄호 부분이다.","s":"시스템 보안 구축 \u003c표 2-7> (54쪽)","acc":null},{"sel":true,"head":"불필요한 보조(AUX) 포트 비활성화","q":"다음은 불필요한 보조(AUX) 포트 비활성화이다. 괄호에 들어갈 답을 【보기】에서 골라 쓰시오.","code":["Router(config)# line aux 0","Router(config-line)# (          ) (어떤 사용자도 접속 금지)"],"a":"no password","fill":"no password","exact":["no password"],"e":"학습모듈에 실린 설정 예시의 괄호 부분이다.","s":"NW보안 구축 \u003c표 2-10> (58쪽)","acc":null},{"sel":true,"head":"경고 메시지 표시 설정","q":"다음은 경고 메시지 표시 설정이다. 괄호에 들어갈 답을 【보기】에서 골라 쓰시오.","code":["Router(config)# (          )","Enter TEXT message. End with the character '#'."],"a":"banner motd","fill":"banner motd","exact":["banner motd"],"e":"학습모듈에 실린 설정 예시의 괄호 부분이다.","s":"NW보안 구축 \u003c표 2-11> (58쪽)","acc":null},{"sel":true,"head":"네트워크 패스워드 설정","q":"다음은 네트워크 패스워드 설정이다. 괄호에 들어갈 답을 【보기】에서 골라 쓰시오.","code":["Router(config)# (          ) \u003c패스워드>"],"a":"enable secret","fill":"enable secret","exact":["enable secret"],"e":"학습모듈에 실린 설정 예시의 괄호 부분이다.","s":"NW보안 구축 (55~56쪽)","acc":null},{"sel":true,"q":"다음 설명에 해당하는 답을 【보기】에서 골라 쓰시오.\n\"취약점 분석의 네 번째 단계는 모든 열린 포트의 서비스를 확인하는 것이다.\"","a":"서비스 인식(recognizing services)","exact":["서비스 인식(recognizing services)","서비스 인식","recognizing services"],"e":"서비스 인식(recognizing services)에 대한 학습모듈의 설명이다.","s":"네트워크 보안 운영 (30쪽)","acc":null},{"sel":true,"q":"다음 설명에 해당하는 답을 【보기】에서 골라 쓰시오.\n\"정보에 부가 가치를 첨가하여 불특정 다수의 이용자에게 제공하기 위한 네트워크이다.\"","a":"부가 가치 통신망(VAN)","exact":["부가 가치 통신망(VAN)","부가 가치 통신망","VAN"],"e":"부가 가치 통신망(VAN)에 대한 학습모듈의 설명이다.","s":"네트워크 보안 운영 (14쪽)","acc":null},{"sel":true,"q":"다음 설명에 해당하는 답을 【보기】에서 골라 쓰시오.\n\"네트워크 패킷은 송신자와 수신자 간의 전송 과정에서 위조 또는 변조가 발생하지 않아야 한다.\"","a":"무결성 측면","exact":["무결성 측면","무결성"],"e":"무결성 측면에 대한 학습모듈의 설명이다.","s":"네트워크 보안 운영 (3쪽)","acc":null},{"sel":true,"q":"다음 설명에 해당하는 답을 【보기】에서 골라 쓰시오.\n\"보안 취약점에 대한 패치, 소프트웨어 중대 문제점 개선 등 안정성 및 안전에 관련된 필수 업데이트이다.\"","a":"중요 업데이트","exact":["중요 업데이트"],"e":"중요 업데이트에 대한 학습모듈의 설명이다.","s":"애플리케이션 보안 운영 (50쪽)","acc":null},{"sel":true,"q":"다음 설명에 해당하는 답을 【보기】에서 골라 쓰시오.\n\"웹 애플리케이션에 대하여 인증, 세션, 암호화 전송, 웹 보안 영역의 전반적인 취약점, 접근 제어 등에 대하여 외부에서 해커를 가장하여 침투 테스트를 수행한다.\"","a":"외부 모의 해킹","exact":["외부 모의 해킹","외부 모의해킹"],"e":"외부 모의 해킹에 대한 학습모듈의 설명이다.","s":"애플리케이션 보안 운영 (25쪽)","acc":null},{"sel":true,"q":"다음 설명에 해당하는 답을 【보기】에서 골라 쓰시오.\n\"사고가 발생하기 전 침해 사고 대응팀과 조직적인 대응을 준비한다.\"","a":"사고 대응 전 준비 과정","exact":["사고 대응 전 준비 과정","사고 대응 전 준비"],"e":"사고 대응 전 준비 과정에 대한 학습모듈의 설명이다.","s":"시스템 보안 운영 (55쪽)","acc":null},{"sel":true,"q":"다음 설명에 해당하는 답을 【보기】에서 골라 쓰시오.\n\"보안상 발생하는 기술적인 위험 요소를 방어하기 위한 솔루션\"","a":"보안 솔루션","exact":["보안 솔루션"],"e":"보안 솔루션에 대한 학습모듈의 설명이다.","s":"시스템 보안 운영 (5쪽)","acc":null},{"sel":true,"q":"다음 설명에 해당하는 답을 【보기】에서 골라 쓰시오.\n\"공격을 당하는 Destination IP Address\"","a":"공격 대상","exact":["공격 대상"],"e":"공격 대상에 대한 학습모듈의 설명이다.","s":"보안로그 분석(LM2001060307_19v2, 본문 표기 16v1) \u003c표 1-14> (20쪽)","acc":null},{"sel":true,"q":"다음 설명에 해당하는 답을 【보기】에서 골라 쓰시오.\n\"전자문서의 생성, Open, 수정 시도 등 / 문서의 출력 시도 / Device(CD-ROM, USB 등) Control 결과\"","a":"DRM, DLP","exact":["DRM, DLP","DRM/DLP","DRM","DLP"],"e":"DRM, DLP에 대한 학습모듈의 설명이다.","s":"보안로그 분석(LM2001060307_19v2, 본문 표기 16v1) \u003c표 2-1> (31쪽)","acc":null},{"sel":true,"q":"다음 괄호에 들어갈 답을 【보기】에서 골라 쓰시오.\n\"(          ) 명령어는 local 사용자 또는 원격 사용자의 계정 정보를 확인하는 명령이다.\"","a":"finger","fill":"finger","exact":["finger"],"e":"학습모듈 문장의 괄호 부분이다.","s":"정보시스템 진단(LM2001060207_19v2, 본문 표기 16v1) (54쪽)","acc":null},{"sel":true,"q":"다음 괄호에 들어갈 답을 【보기】에서 골라 쓰시오.\n\"(          )을 사용할 경우 악의적인 사용자가 시스템에 관한 정보를 획득할 수 있으며 디렉터리 쓰기 권한이 설정되어 있을 경우 다양한 공격이 가능하므로\"","a":"익명(Anonymous)","fill":"익명(Anonymous)","exact":["익명(Anonymous)","익명","Anonymous","Anonymous FTP","익명 FTP"],"e":"학습모듈 문장의 괄호 부분이다.","s":"정보시스템 진단(LM2001060207_19v2, 본문 표기 16v1) (54쪽)","acc":null}],"secondBogi":["/etc/default/passwd","/etc/login.defs","가용성 측면","개인 통신망(PAN)","공격 대상","공격 주체","기밀성 측면","내부 모의 해킹","대응 전략 수립","무결성 측면","보안 솔루션","부가 가치 통신망(VAN)","부인 방지 측면","불안전한 암호 저장","사고 대응 전 준비 과정","사고 조사","서비스 목록 탐색","서비스 인식(recognizing services)","선택적 업데이트","애플리케이션 로직 결함","외부 모의 해킹","익명(Anonymous)","인증 우회","중요 업데이트","취약한 인증 및 세션 관리","automountd","banner motd","cron.allow","cron.deny","DRM, DLP","enable secret","finger","no exec","no password","Null Pointer 역참조","pwunconv","transport input none","URL 접근 제한 실패","USB 보안","userdel"]};
+const CIR = ['①','②','③','④','⑤','⑥'], KOR = ['㉠','㉡','㉢','㉣'];
+const TY = {ox:'진위형',match:'연결형',choice:'4지 택일형',short:'단답형',calc:'계산형'};
+const KEY = 'infosec-mock-' + D.meta.round;
+const parts = {first:{items:D.first,pts:D.meta.ptsFirst,name:'1차 시험'},second:{items:D.second,pts:D.meta.ptsSecond,name:'2차 시험'}};
+let st = {first:{a:{},o:{},g:false},second:{a:{},o:{},g:false}};
+try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.first&&s.second)st=s}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const norm=s=>String(s).toLowerCase().replace(/[\s%:=·,.()\-_'"`]/g,'');
+const view=()=>location.hash==='#second'?'second':'first';
+
+function correct(it,v){
+  if(v==null||v==='')return false;
+  if(it.type==='ox')return v===it.a;
+  if(it.type==='choice')return Number(v)===it.a;
+  if(it.type==='match')return v===it.a.match(/[㉠-㉣]/g).join('');
+  const x=norm(v);
+  if(it.exact)return it.exact.some(a=>norm(a)===x);
+  if(it.acc)return it.acc.some(alt=>alt.every(tok=>tok.split('|').some(o=>x.includes(norm(o)))));
+  const alts=new Set([it.a]);
+  const m=it.a.match(/^(.*?)\((.*)\)\s*$/);if(m){alts.add(m[1]);alts.add(m[2])}
+  it.a.split(' 또는 ').forEach(p=>alts.add(p));
+  return [...alts].map(norm).filter(Boolean).some(a=>x===a||(a.length>=4&&x.includes(a)));
+}
+
+function body(it,i,p){
+  const v=st[p].a[i];const id=p+'-'+i;
+  if(it.type==='ox')return `<div class="stmt">${esc(it.stmt)}</div><div class="opts row">${['O','X'].map((o,k)=>`<label class="opt" data-v="${o}"><input type="radio" name="${id}" value="${o}"${v===o?' checked':''}><span class="c">${CIR[k]}</span><span>${o}</span></label>`).join('')}</div>`;
+  if(it.type==='choice')return (it.code?`<pre>${esc(it.code.join('\n'))}</pre>`:'')+`<div class="opts">${it.o.map((o,k)=>`<label class="opt" data-v="${k+1}"><input type="radio" name="${id}" value="${k+1}"${String(v)===String(k+1)?' checked':''}><span class="c">${CIR[k]}</span><span>${esc(o)}</span></label>`).join('')}</div>`;
+  if(it.type==='match'){const sel=(v||'').split('');return `<div class="match">${it.left.map((l,k)=>`<div class="l"><label for="${id}-${k}">${CIR[k]} ${esc(l)}</label><select id="${id}-${k}" data-k="${k}"><option value="">선택</option>${KOR.slice(0,it.right.length).map(c=>`<option${sel[k]===c?' selected':''}>${c}</option>`).join('')}</select></div><div class="r">${KOR[k]} ${esc(it.right[k])}</div>`).join('')}</div>`}
+  return (it.code?`<pre>${esc(it.code.join('\n'))}</pre>`:'')+`<input type="text" id="${id}" autocomplete="off"${it.sel?' list="sbogi" placeholder="【보기】에서 골라 쓰세요"':' placeholder="답을 직접 쓰세요"'} value="${esc(v||'')}">${it.sel?'<button type="button" class="pick">【보기】에서 고르기</button>':''}`;
+}
+
+function ansText(it){
+  if(it.type==='ox')return it.a==='O'?'① O':'② X';
+  if(it.type==='choice')return CIR[it.a-1]+' '+it.o[it.a-1];
+  return it.a;
+}
+
+function render(){
+  const p=view(),P=parts[p];
+  document.getElementById('tab-first').toggleAttribute('aria-current',p==='first');
+  document.getElementById('tab-second').toggleAttribute('aria-current',p==='second');
+  if(p==='first')document.getElementById('tab-first').setAttribute('aria-current','page');else document.getElementById('tab-second').setAttribute('aria-current','page');
+  let out='',last='';
+  P.items.forEach((it,i)=>{
+    const ty=it.type||'pr';
+    if(p==='first'&&ty!==last){const n=P.items.filter(x=>x.type===ty).length;const from=i+1;out+=`<div class="sec">${TY[ty]}<span>${from}~${from+n-1}번 · 문항당 ${P.pts}점</span></div>`;last=ty}
+    if(p==='second'&&i===0)out+=`<div class="sec">정보보안 운영 및 분석진단 등(필답형) · 답을 직접 쓰되 아래【보기】에서 찾아 쓰기<span>1~${P.items.length}번 · 문항당 ${P.pts}점</span></div><div class="bogi" id="shared-bogi"><b>【보기】 ${D.secondBogi.length}개 · 1~${P.items.length}번 공통 (정답이 아닌 항목도 있음) · 답란을 누른 뒤 항목을 누르면 입력됩니다</b><div class="chips">${D.secondBogi.map(b=>`<button type="button" data-fill="${esc(b)}">${esc(b)}</button>`).join('')}</div></div><datalist id="sbogi">${D.secondBogi.map(b=>`<option value="${esc(b)}">`).join('')}</datalist>`;
+    const [t,...rest]=it.q.split('\n');
+    out+=`<section class="q" id="q-${p}-${i}" data-i="${i}"><div class="num" aria-hidden="true">${i+1}</div><div><p class="qt">${it.type?`<span class="ty">${TY[it.type]}</span>`:''}${esc(t)}</p>${rest.map(r=>`<p>${esc(r)}</p>`).join('')}${body(it,i,p)}</div><div class="ans"><span class="a">정답: ${esc(ansText(it))}</span><span class="res"></span><p>${esc(it.e)}</p><p class="s">위치: ${esc(it.s)}</p>${!['ox','choice','match'].includes(it.type)?'<button type="button" class="ovr">정답으로 인정</button>':''}</div></section>`;
+  });
+  document.getElementById('view').innerHTML=out;
+  mark();
+}
+
+function mark(){
+  const p=view(),P=parts[p],S=st[p];
+  let ok=0,done=0;
+  P.items.forEach((it,i)=>{
+    const v=S.a[i];if(v!=null&&v!=='')done++;
+    const good=S.o[i]||correct(it,v);if(good)ok++;
+    const el=document.getElementById(`q-${p}-${i}`);if(!el)return;
+    el.classList.toggle('graded',S.g);el.classList.toggle('ok',S.g&&good);el.classList.toggle('no',S.g&&!good);
+    el.querySelectorAll('.opt').forEach(o=>{o.classList.toggle('sel',o.querySelector('input').checked);const isA=it.type==='ox'?o.dataset.v===it.a:Number(o.dataset.v)===it.a;o.classList.toggle('right',S.g&&isA);o.classList.toggle('wrong',S.g&&!isA&&o.querySelector('input').checked)});
+    const ov=el.querySelector('.ovr');if(ov){ov.hidden=!S.g||correct(it,v);ov.textContent=S.o[i]?'인정 취소':'정답으로 인정'}
+    const r=el.querySelector('.res');if(r)r.textContent=S.g?(good?'  ○ 맞음':(v?'  ✕ 틀림':'  ✕ 미응답')):'';
+  });
+  const total=P.items.length;
+  document.getElementById('info').innerHTML=`<b>${P.name}</b> · 답한 문항 <b>${done}</b> / ${total}${S.g?` · 맞힌 문항 <b>${ok}</b>`:''}`;
+  document.getElementById('pts').textContent=String(Math.round(ok*P.pts*10)/10);
+  document.getElementById('score').classList.toggle('on',S.g);
+  document.getElementById('grade').textContent=S.g?'채점 결과 보는 중':'채점하기';
+  document.querySelector('.bar').classList.toggle('done',S.g);
+}
+
+const V=document.getElementById('view');
+V.addEventListener('change',e=>{
+  const q=e.target.closest('.q');if(!q)return;const p=view(),i=+q.dataset.i,it=parts[p].items[i];
+  if(it.type==='match'){st[p].a[i]=[...q.querySelectorAll('select')].map(s=>s.value||'_').join('');if(/^_+$/.test(st[p].a[i]))st[p].a[i]=''}
+  else if(e.target.type==='radio')st[p].a[i]=e.target.value;
+  save();mark();
+});
+V.addEventListener('input',e=>{
+  if(e.target.type!=='text')return;const q=e.target.closest('.q');const p=view();st[p].a[+q.dataset.i]=e.target.value;delete st[p].o[+q.dataset.i];save();mark();
+});
+const sheet=document.getElementById('sheet'),sheetList=document.getElementById('sheet-list');let pickInp=null;
+if(!sheet.showModal)document.documentElement.classList.add('nosheet');
+sheetList.innerHTML=D.secondBogi.map(b=>`<button type="button" data-v="${esc(b)}">${esc(b)}</button>`).join('');
+sheetList.addEventListener('click',e=>{
+  const b=e.target.closest('[data-v]');if(!b||!pickInp)return;
+  const q=pickInp.closest('.q'),p=view(),i=+q.dataset.i;
+  pickInp.value=b.dataset.v;st[p].a[i]=b.dataset.v;delete st[p].o[i];save();mark();sheet.close();
+});
+document.getElementById('sheet-x').addEventListener('click',()=>sheet.close());
+sheet.addEventListener('click',e=>{if(e.target===sheet)sheet.close()});
+let lastSel=null;
+V.addEventListener('focusin',e=>{if(e.target.matches('input[list=sbogi]'))lastSel=e.target});
+V.addEventListener('click',e=>{
+  const pk=e.target.closest('.pick');
+  if(pk){
+    const q=pk.closest('.q');pickInp=q.querySelector('input[type=text]');
+    document.getElementById('sheet-t').textContent=`${+q.dataset.i+1}번 답 고르기`;
+    sheetList.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v===pickInp.value)));
+    sheet.showModal();sheetList.scrollTop=0;
+    return;
+  }
+  const f=e.target.closest('#shared-bogi [data-fill]');
+  if(f){
+    let inp=lastSel&&document.body.contains(lastSel)?lastSel:null;
+    if(!inp)inp=[...V.querySelectorAll('input[list=sbogi]')].find(x=>!x.value);
+    if(!inp)return;
+    const q=inp.closest('.q');const p=view(),i=+q.dataset.i;
+    inp.value=f.dataset.fill;st[p].a[i]=inp.value;delete st[p].o[i];save();mark();
+    const all=[...V.querySelectorAll('input[list=sbogi]')];const nx=all.slice(all.indexOf(inp)+1).find(x=>!x.value);
+    if(nx){lastSel=nx;if(!matchMedia('(max-width:600px)').matches)nx.focus({preventScroll:true})}
+    return;
+  }
+  const q=e.target.closest('.q');if(!q)return;const p=view(),i=+q.dataset.i;
+  if(e.target.classList.contains('ovr')){if(st[p].o[i])delete st[p].o[i];else st[p].o[i]=true;save();mark()}
+});
+document.getElementById('grade').addEventListener('click',()=>{const p=view();st[p].g=true;save();mark();const first=document.querySelector('.q.no');if(first)first.scrollIntoView({behavior:'smooth',block:'start'})});
+document.getElementById('reset').addEventListener('click',()=>{const p=view();st[p]={a:{},o:{},g:false};save();render();window.scrollTo(0,0)});
+window.addEventListener('hashchange',()=>{render();window.scrollTo(0,0)});
+document.getElementById('round').textContent=D.meta.round;
+document.getElementById('units').innerHTML='<thead><tr><th>능력단위</th><th>1차 문항</th><th>2차 문항</th></tr></thead><tbody>'+D.units.map(u=>`<tr><td>${esc(u.name)}<br><small>${esc(u.code)}</small></td><td>${esc(u.f)}</td><td>${esc(u.s||'–')}</td></tr>`).join('')+'</tbody>';
+window.claude?.hot?.snapshot?.(()=>st);
+const start=d=>{if(d&&d.first&&d.second)st=d;render()};
+window.claude?.hot?.ready?window.claude.hot.ready(start):start(window.claude?.hot?.data);
+}
+</script>
+</body>
+</html>
